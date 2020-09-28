@@ -1,0 +1,12 @@
+name: Lobby_by_Groodian
+main: de.groodian.lobby.main.Main
+author: Groodian
+version: 1.0
+
+commands:
+   mpjoin:
+      description: MinecraftParty
+   lsetup:
+      description: Lobby Setup
+   build:
+      description: Build
