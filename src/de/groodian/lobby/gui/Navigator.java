@@ -1,5 +1,8 @@
 package de.groodian.lobby.gui;
 
+import de.groodian.hyperiorcore.util.ConfigLocation;
+import de.groodian.hyperiorcore.util.HSound;
+import de.groodian.hyperiorcore.util.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -12,8 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import de.groodian.lobby.main.Main;
-import de.groodian.lobby.util.ConfigLocationUtil;
-import de.groodian.lobby.util.ItemBuilder;
 
 public class Navigator implements Listener {
 	
@@ -32,7 +33,7 @@ public class Navigator implements Listener {
 		inventory.setItem(14, new ItemBuilder(Material.PRISMARINE_SHARD).setName("§8» §bTägliche Belohnungen").build());
 		inventory.setItem(16, new ItemBuilder(Material.GLOWSTONE_DUST).setName("§8» §6Spawn").build());
 		player.openInventory(inventory);
-		plugin.getPlaySound().playSoundFor(Sound.LEVEL_UP, player, 10, 4);
+		new HSound(Sound.LEVEL_UP, 10, 4).playFor(player);
 	}
 
 	@EventHandler
@@ -47,9 +48,9 @@ public class Navigator implements Listener {
 					if (e.getCurrentItem().getItemMeta() != null) {
 						if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
 							if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§8» §eMinecraft Party")) {
-								ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "MinecraftPartyWarp");
+								ConfigLocation locationUtil = new ConfigLocation(plugin, "MinecraftPartyWarp");
 								if (locationUtil.loadLocation() != null) {
-									plugin.getPlaySound().playSoundFor(Sound.ENDERDRAGON_WINGS, player);
+									new HSound(Sound.ENDERDRAGON_WINGS).playFor(player);
 									player.setVelocity(new Vector(0, 5, 0));
 									player.closeInventory();
 									new BukkitRunnable() {
@@ -62,9 +63,9 @@ public class Navigator implements Listener {
 								return;
 							}
 							if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§8» §aTrails Kiste")) {
-								ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "CratesWarp");
+								ConfigLocation locationUtil = new ConfigLocation(plugin, "CratesWarp");
 								if (locationUtil.loadLocation() != null) {
-									plugin.getPlaySound().playSoundFor(Sound.ENDERDRAGON_WINGS, player);
+									new HSound(Sound.ENDERDRAGON_WINGS).playFor(player);
 									player.setVelocity(new Vector(0, 5, 0));
 									player.closeInventory();
 									new BukkitRunnable() {
@@ -77,9 +78,9 @@ public class Navigator implements Listener {
 								return;
 							}
 							if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§8» §bTägliche Belohnungen")) {
-								ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "DailyBonusWarp");
+								ConfigLocation locationUtil = new ConfigLocation(plugin, "DailyBonusWarp");
 								if (locationUtil.loadLocation() != null) {
-									plugin.getPlaySound().playSoundFor(Sound.ENDERDRAGON_WINGS, player);
+									new HSound(Sound.ENDERDRAGON_WINGS).playFor(player);
 									player.setVelocity(new Vector(0, 5, 0));
 									player.closeInventory();
 									new BukkitRunnable() {
@@ -92,9 +93,9 @@ public class Navigator implements Listener {
 								return;
 							}
 							if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§8» §6Spawn")) {
-								ConfigLocationUtil locationUtil = new ConfigLocationUtil(plugin, "SpawnWarp");
+								ConfigLocation locationUtil = new ConfigLocation(plugin, "SpawnWarp");
 								if (locationUtil.loadLocation() != null) {
-									plugin.getPlaySound().playSoundFor(Sound.ENDERDRAGON_WINGS, player);
+									new HSound(Sound.ENDERDRAGON_WINGS).playFor(player);
 									player.setVelocity(new Vector(0, 5, 0));
 									player.closeInventory();
 									new BukkitRunnable() {

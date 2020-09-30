@@ -1,35 +1,35 @@
 package de.groodian.lobby.boards;
 
-import org.bukkit.entity.Player;
-
-import de.groodian.hyperiorcore.coinsystem.CoinSystem;
-import de.groodian.hyperiorcore.ranks.Ranks;
+import de.groodian.hyperiorcore.boards.HScoreboard;
+import de.groodian.hyperiorcore.main.HyperiorCore;
+import de.groodian.hyperiorcore.ranks.Rank;
 import de.groodian.lobby.main.Main;
+import org.bukkit.entity.Player;
 
 public class LobbyScoreboard {
 
-	private Main plugin;
+    private Main plugin;
+    private HScoreboard sb;
 
-	public LobbyScoreboard(Main plugin) {
-		this.plugin = plugin;
-	}
+    public LobbyScoreboard(Main plugin) {
+        this.plugin = plugin;
+        sb = HyperiorCore.getSB();
+    }
 
-	public void updateLobbyScoreboard(Player player) {
-		String rank = Ranks.getRank(player.getUniqueId().toString().replaceAll("-", ""));
-		plugin.getScoreborad().unregisterObjectiveFor(player);
-		plugin.getScoreborad().send(player, "LobbyBoard", "§f§lHYPERIOR.DE");
-		plugin.getScoreborad().add("", 11);
-		plugin.getScoreborad().add("§fDein Rang§7:", 10);
-		plugin.getScoreborad().add(((rank == null) ? "§aSpieler" : rank), 9);
-		plugin.getScoreborad().add(" ", 8);
-		plugin.getScoreborad().add("§fCoins§7:", 7);
-		plugin.getScoreborad().add("§e" + CoinSystem.getCoins(player), 6);
-		plugin.getScoreborad().add("  ", 5);
-		plugin.getScoreborad().add("§fOnline§7:", 4);
-		plugin.getScoreborad().add("§7" + plugin.getOnlineCount(), 3);
-		plugin.getScoreborad().add("   ", 2);
-		plugin.getScoreborad().add("§fTeamSpeak§7:", 1);
-		plugin.getScoreborad().add("§ehyperior.de", 0);
-	}
+    public void updateLobbyScoreboard(Player player) {
+        Rank rank = HyperiorCore.getRanks().getRank(player.getUniqueId());
+        sb.updateLine(0, player, "");
+        sb.updateLine(1, player, "§fDein Rang§7:");
+        sb.updateLine(2, player, (rank.getColor() + rank.getName()));
+        sb.updateLine(3, player, " ");
+        sb.updateLine(4, player, "§fCoins§7:");
+        sb.updateLine(5, player, "§e" + HyperiorCore.getCoinSystem().getCoins(player));
+        sb.updateLine(6, player, "  ");
+        sb.updateLine(7, player, "§fOnline§7:");
+        sb.updateLine(8, player, "§7" + plugin.getOnlineCount());
+        sb.updateLine(9, player, "   ");
+        sb.updateLine(10, player, "§fTeamSpeak§7:");
+        sb.updateLine(11, player, "§ehyperior.de");
+    }
 
 }

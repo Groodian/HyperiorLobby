@@ -1,5 +1,6 @@
 package de.groodian.lobby.commands;
 
+import de.groodian.hyperiorcore.main.HyperiorCore;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -21,7 +22,7 @@ public class BuildCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (Ranks.has(player.getUniqueId().toString().replaceAll("-", ""), "lobby.build")) {
+			if (HyperiorCore.getRanks().has(player.getUniqueId(), "lobby.build")) {
 				if (!plugin.getBuild().contains(player)) {
 					plugin.getBuild().add(player);
 					player.setGameMode(GameMode.CREATIVE);
