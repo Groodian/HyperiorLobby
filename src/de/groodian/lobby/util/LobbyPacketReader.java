@@ -20,7 +20,7 @@ public class LobbyPacketReader extends PacketReader {
             int id = (int) getValue(packet, "a");
             if (plugin.getMpJoin().getEntityID() == id) {
                 if (getValue(packet, "action").toString().equalsIgnoreCase("INTERACT")) {
-                    plugin.getGui().openMainGUI(player);
+                    plugin.getMinecraftPartyGUI().openMainGUI(player);
                 }
             }
             if (plugin.getDailyBonus().getEntityID() == id) {

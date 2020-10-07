@@ -1,12 +1,12 @@
-name: Lobby_by_Groodian
+name: HyperiorLobby_by_Groodian
 main: de.groodian.lobby.main.Main
 author: Groodian
-version: 2.0
+version: 3.0
+
+depend: [HyperiorCore_by_Groodian]
 
 commands:
-   mpjoin:
-      description: MinecraftParty
    lsetup:
-      description: Lobby Setup
+      description: Setting up the lobby
    build:
-      description: Build
+      description: Build mode

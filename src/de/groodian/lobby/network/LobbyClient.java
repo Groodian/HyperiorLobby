@@ -3,18 +3,20 @@ package de.groodian.lobby.network;
 import de.groodian.lobby.main.Main;
 import de.groodian.network.Client;
 import de.groodian.network.DataPackage;
-import org.bukkit.Bukkit;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LobbyClient extends Client {
 
+    private Main plugin;
+
     private Map<String, LobbyServiceInfo> lobbyServiceInfos;
     private Map<String, MinecraftPartyServiceInfo> minecraftPartyServiceInfos;
 
-    public LobbyClient(String hostname, int port, DataPackage loginPack) {
+    public LobbyClient(Main plugin, String hostname, int port, DataPackage loginPack) {
         super(hostname, port, loginPack);
+        this.plugin = plugin;
         lobbyServiceInfos = new HashMap<>();
         minecraftPartyServiceInfos = new HashMap<>();
     }
@@ -25,13 +27,13 @@ public class LobbyClient extends Client {
         if (header.equalsIgnoreCase("UPDATE")) {
             String group = dataPackage.get(1).toString();
             int groupNumber = (int) dataPackage.get(2);
-            if (group.equals("MINECRAFTPARTY")) {
+            if (group.equalsIgnoreCase("MINECRAFTPARTY")) {
                 minecraftPartyServiceInfos.put(group + "-" + groupNumber, new MinecraftPartyServiceInfo(
                         dataPackage.get(3).toString(),
                         (int) dataPackage.get(4),
                         (int) dataPackage.get(5)
                 ));
-            } else if (group.equals("LOBBY")) {
+            } else if (group.equalsIgnoreCase("LOBBY")) {
                 lobbyServiceInfos.put(group + "-" + groupNumber, new LobbyServiceInfo(
                         (int) dataPackage.get(3),
                         (int) dataPackage.get(4)
@@ -42,24 +44,29 @@ public class LobbyClient extends Client {
         } else if (header.equalsIgnoreCase("DISCONNECTED")) {
             String group = dataPackage.get(1).toString();
             int groupNumber = (int) dataPackage.get(2);
-            if (group.equals("MINECRAFTPARTY")) {
-                if (minecraftPartyServiceInfos.containsKey(group + "-" + groupNumber)) {
-                    minecraftPartyServiceInfos.remove(group + "-" + groupNumber);
-                }
-            } else if (group.equals("LOBBY")) {
-                if (lobbyServiceInfos.containsKey(group + "-" + groupNumber)) {
-                    lobbyServiceInfos.remove(group + "-" + groupNumber);
-                }
+            if (group.equalsIgnoreCase("MINECRAFTPARTY")) {
+                minecraftPartyServiceInfos.remove(group + "-" + groupNumber);
+            } else if (group.equalsIgnoreCase("LOBBY")) {
+                lobbyServiceInfos.remove(group + "-" + groupNumber);
             } else {
                 System.out.println("[Client] Unknown group: " + group);
             }
         } else {
             System.out.println("[Client] Unknown header: " + header);
         }
+
+        plugin.getMinecraftPartyGUI().update();
+        plugin.getMpJoin().updateHologram();
+        plugin.getLobbyGUI().update();
     }
 
-    public void sendUpdate() {
-        sendMessage(new DataPackage("SERVICE_INFO", Bukkit.getOnlinePlayers().size(), Main.MAX_PLAYERS));
+    @Override
+    protected void onSuccessfulLogin() {
+        sendUpdate(0);
+    }
+
+    public void sendUpdate(int size) {
+        sendMessage(new DataPackage("SERVICE_INFO", size, Main.MAX_PLAYERS));
     }
 
     public Map<String, LobbyServiceInfo> getLobbyServiceInfos() {

@@ -65,14 +65,17 @@ public class MainListener implements Listener {
 
     @EventHandler
     public void handleInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
         if (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            if (e.getPlayer().getItemInHand() != null) {
-                if (e.getPlayer().getItemInHand().getItemMeta() != null) {
-                    if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName() != null) {
-                        if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals("§6§lTrails §7(Rechtsklick)")) {
-                            GUI.openGUI(e.getPlayer());
-                        } else if (e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals("§c§lNavigator §7(Rechtsklick)")) {
-                            plugin.getNavigator().open(e.getPlayer());
+            if (player.getItemInHand() != null) {
+                if (player.getItemInHand().getItemMeta() != null) {
+                    if (player.getItemInHand().getItemMeta().getDisplayName() != null) {
+                        if (player.getItemInHand().getItemMeta().getDisplayName().equals("§6§lTrails §7(Rechtsklick)")) {
+                            GUI.openGUI(player);
+                        } else if (player.getItemInHand().getItemMeta().getDisplayName().equals("§c§lNavigator §7(Rechtsklick)")) {
+                            plugin.getNavigator().open(player);
+                        } else if (player.getItemInHand().getItemMeta().getDisplayName().equals("§b§lLobby wechsler §7(Rechtsklick)")) {
+                            plugin.getLobbyGUI().openGUI(player);
                         }
                     }
                 }
@@ -86,7 +89,7 @@ public class MainListener implements Listener {
     @EventHandler
     public void handlePlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        new Tablist("[§6HYPERIOR.DE§r]\n§eLobby - 1\n", "\n§7Lust auf tolle Vorteile und Features?\n§6Dann Besuche unseren Shop unter /shop!").sendTo(player);
+        new Tablist("[§6HYPERIOR.DE§r]\n§eLobby - " + Bukkit.getServerName() + "\n", "\n§7Lust auf tolle Vorteile und Features?\n§6Dann Besuche unseren Shop unter /shop!").sendTo(player);
         player.getInventory().clear();
         player.getInventory().setArmorContents(null);
         player.setHealth(20);
@@ -101,11 +104,12 @@ public class MainListener implements Listener {
         skull.setItemMeta(meta);
         player.getInventory().setItem(0, new ItemBuilder(Material.COMPASS).setName("§c§lNavigator §7(Rechtsklick)").build());
         player.getInventory().setItem(1, skull);
+        player.getInventory().setItem(4, new ItemBuilder(Material.CHEST).setName("§6§lTrails §7(Rechtsklick)").build());
         player.getInventory().setItem(7, new ItemBuilder(Material.FIREWORK_CHARGE).setName("§cKein Gadget ausgewählt!").build());
-        player.getInventory().setItem(8, new ItemBuilder(Material.CHEST).setName("§6§lTrails §7(Rechtsklick)").build());
+        player.getInventory().setItem(8, new ItemBuilder(Material.NETHER_STAR).setName("§b§lLobby wechsler §7(Rechtsklick)").build());
 
         HyperiorCore.getSB().registerScoreboard(player, "§lHYPERIOR.DE", 12, 1, 100);
-        plugin.getLobbyScoreboard().updateLobbyScoreboard(player);
+        plugin.getLobbyScoreboard().set(player);
 
         event.setJoinMessage(null);
 
@@ -120,11 +124,15 @@ public class MainListener implements Listener {
             LobbyPacketReader lpr = new LobbyPacketReader(player, plugin);
             lpr.inject();
         }
+
+        plugin.getClient().sendUpdate(Bukkit.getOnlinePlayers().size());
     }
 
     @EventHandler
     public void handlePlayerQuit(PlayerQuitEvent event) {
         event.setQuitMessage(null);
+
+        plugin.getClient().sendUpdate(Bukkit.getOnlinePlayers().size() - 1);
     }
 
     @EventHandler
@@ -154,9 +162,9 @@ public class MainListener implements Listener {
     public void handlePlayerInventoryClick(InventoryClickEvent e) {
         if (!(e.getWhoClicked() instanceof Player))
             return;
-        if (e.getWhoClicked() instanceof Player) {
-            if (plugin.getBuild().contains(e.getWhoClicked()))
-                return;
+        Player player = (Player) e.getWhoClicked();
+        if (plugin.getBuild().contains(player)) {
+            return;
         }
         e.setCancelled(true);
     }
@@ -178,9 +186,11 @@ public class MainListener implements Listener {
 
     @EventHandler
     public void handleBowShot(EntityShootBowEvent e) {
-        if (e.getEntity() instanceof Player) {
-            if (plugin.getBuild().contains(e.getEntity()))
-                return;
+        if (!(e.getEntity() instanceof Player))
+            return;
+        Player player = (Player) e.getEntity();
+        if (plugin.getBuild().contains(player)) {
+            return;
         }
         e.setCancelled(true);
     }

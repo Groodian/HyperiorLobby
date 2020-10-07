@@ -16,8 +16,8 @@ public class LobbyScoreboard {
         sb = HyperiorCore.getSB();
     }
 
-    public void updateLobbyScoreboard(Player player) {
-        Rank rank = HyperiorCore.getRanks().getRank(player.getUniqueId());
+    public void set(Player player) {
+        Rank rank = HyperiorCore.getRanks().get(player.getUniqueId());
         sb.updateLine(0, player, "");
         sb.updateLine(1, player, "§fDein Rang§7:");
         sb.updateLine(2, player, (rank.getColor() + rank.getName()));
@@ -30,6 +30,13 @@ public class LobbyScoreboard {
         sb.updateLine(9, player, "   ");
         sb.updateLine(10, player, "§fTeamSpeak§7:");
         sb.updateLine(11, player, "§ehyperior.de");
+    }
+
+    public void update(Player player) {
+        Rank rank = HyperiorCore.getRanks().get(player.getUniqueId());
+        sb.updateLine(2, player, (rank.getColor() + rank.getName()));
+        sb.updateLine(5, player, "§e" + HyperiorCore.getCoinSystem().getCoins(player));
+        sb.updateLine(8, player, "§7" + plugin.getOnlineCount());
     }
 
 }
