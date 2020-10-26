@@ -1,12 +1,12 @@
 name: HyperiorLobby_by_Groodian
 main: de.groodian.lobby.main.Main
 author: Groodian
-version: 3.0
+version: 3.0.1
 
-depend: [HyperiorCore_by_Groodian]
+depend: [ HyperiorCore_by_Groodian ]
 
 commands:
-   lsetup:
-      description: Setting up the lobby
-   build:
-      description: Build mode
+  lsetup:
+    description: Setting up the lobby
+  build:
+    description: Build mode

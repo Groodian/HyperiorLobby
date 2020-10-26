@@ -50,8 +50,7 @@ public class Crate {
                     z = 0D;
                 }
                 temp.add(Math.sin(x), 0, Math.cos(z));
-                Particle particle0 = new Particle(EnumParticle.FLAME, temp, true, 0, 0, 0, 0, 1, 0);
-                particle0.sendAll();
+                new Particle(EnumParticle.FLAME).send(temp);
                 x += 0.2;
                 z += 0.2;
             }

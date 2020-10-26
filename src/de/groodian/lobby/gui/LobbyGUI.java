@@ -93,7 +93,7 @@ public class LobbyGUI implements Listener {
                         if (e.getCurrentItem().getItemMeta().getDisplayName() != null) {
                             String cleanItemName = e.getCurrentItem().getItemMeta().getDisplayName().replace("§a", "");
                             if (cleanItemName.toUpperCase().contains("LOBBY")) {
-                                if(cleanItemName.equalsIgnoreCase(Bukkit.getMotd())) {
+                                if (cleanItemName.equalsIgnoreCase(Bukkit.getMotd())) {
                                     player.sendMessage(Main.PREFIX + "§cDu bist bereits auf dieser Lobby!");
                                 } else {
                                     sendToServer(player, cleanItemName);

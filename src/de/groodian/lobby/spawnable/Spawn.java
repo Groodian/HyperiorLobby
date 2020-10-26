@@ -50,10 +50,9 @@ public class Spawn {
                     pos1 = 0.0D;
                 tempLoc0.add(Math.sin(pos0), 0, Math.cos(pos0));
                 tempLoc1.add(Math.sin(pos1), 0, Math.cos(pos1));
-                Particle particle0 = new Particle(EnumParticle.FIREWORKS_SPARK, tempLoc0, true, 0, 0, 0, 0, 1, 0);
-                Particle particle1 = new Particle(EnumParticle.FIREWORKS_SPARK, tempLoc1, true, 0, 0, 0, 0, 1, 0);
-                particle0.sendAll();
-                particle1.sendAll();
+                Particle particle = new Particle(EnumParticle.FIREWORKS_SPARK);
+                particle.send(tempLoc0);
+                particle.send(tempLoc1);
                 pos0 += 0.2;
                 pos1 += 0.2;
             }
