@@ -1,7 +1,7 @@
 name: HyperiorLobby_by_Groodian
 main: de.groodian.lobby.main.Main
 author: Groodian
-version: 3.0.1
+version: 3.0.2
 
 depend: [ HyperiorCore_by_Groodian ]
 
