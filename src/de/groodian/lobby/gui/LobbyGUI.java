@@ -50,7 +50,7 @@ public class LobbyGUI implements Listener {
                             inventory.clear();
                             setLobbyServices(inventory);
                             player.updateInventory();
-                            System.out.println("Update " + GUI_NAME + " for: " + player.getName());
+                            //System.out.println("Update " + GUI_NAME + " for: " + player.getName());
                             continue;
                         }
                     }
@@ -59,7 +59,7 @@ public class LobbyGUI implements Listener {
             playersToRemove.add(player);
         }
         for (Player player : playersToRemove) {
-            System.out.println("Removed " + player.getName());
+            //System.out.println("Removed " + player.getName());
             inventories.remove(player);
         }
     }

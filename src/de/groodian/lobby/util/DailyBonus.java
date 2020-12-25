@@ -2,6 +2,7 @@ package de.groodian.lobby.util;
 
 import de.groodian.hyperiorcore.main.HyperiorCore;
 import de.groodian.hyperiorcore.util.MySQL;
+import de.groodian.hyperiorcore.util.MySQLConnection;
 import org.bukkit.entity.Player;
 
 import java.sql.PreparedStatement;
@@ -43,21 +44,27 @@ public class DailyBonus {
     private static void set(Player player, String rank, String date) {
         if (isUserExists(player)) {
             try {
-                PreparedStatement ps = coreMySQL.getConnection().prepareStatement("UPDATE core SET " + rank + " = ?, playername = ? WHERE UUID = ?");
+                MySQLConnection connection = coreMySQL.getMySQLConnection();
+                PreparedStatement ps = connection.getConnection().prepareStatement("UPDATE core SET " + rank + " = ?, playername = ? WHERE UUID = ?");
                 ps.setString(1, date);
                 ps.setString(2, player.getName());
                 ps.setString(3, player.getUniqueId().toString().replaceAll("-", ""));
                 ps.executeUpdate();
+                ps.close();
+                connection.finish();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
             try {
-                PreparedStatement ps = coreMySQL.getConnection().prepareStatement("INSERT INTO core (UUID,playername," + rank + ") VALUES (?,?,?)");
+                MySQLConnection connection = coreMySQL.getMySQLConnection();
+                PreparedStatement ps = connection.getConnection().prepareStatement("INSERT INTO core (UUID,playername," + rank + ") VALUES (?,?,?)");
                 ps.setString(1, player.getUniqueId().toString().replaceAll("-", ""));
                 ps.setString(2, player.getName());
                 ps.setString(3, date);
                 ps.executeUpdate();
+                ps.close();
+                connection.finish();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -66,12 +73,17 @@ public class DailyBonus {
 
     private static String get(Player player, String rank) {
         try {
-            PreparedStatement ps = coreMySQL.getConnection().prepareStatement("SELECT " + rank + " FROM core WHERE UUID = ?");
+            MySQLConnection connection = coreMySQL.getMySQLConnection();
+            PreparedStatement ps = connection.getConnection().prepareStatement("SELECT " + rank + " FROM core WHERE UUID = ?");
             ps.setString(1, player.getUniqueId().toString().replaceAll("-", ""));
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString(rank);
+            String returnString = null;
+            if (rs.next()) {
+                returnString = rs.getString(rank);
             }
+            ps.close();
+            connection.finish();
+            return returnString;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,10 +92,14 @@ public class DailyBonus {
 
     private static boolean isUserExists(Player player) {
         try {
-            PreparedStatement ps = coreMySQL.getConnection().prepareStatement("SELECT playername FROM core WHERE UUID = ?");
+            MySQLConnection connection = coreMySQL.getMySQLConnection();
+            PreparedStatement ps = connection.getConnection().prepareStatement("SELECT playername FROM core WHERE UUID = ?");
             ps.setString(1, player.getUniqueId().toString().replaceAll("-", ""));
             ResultSet rs = ps.executeQuery();
-            return rs.next();
+            boolean userExists = rs.next();
+            ps.close();
+            connection.finish();
+            return userExists;
         } catch (SQLException e) {
             e.printStackTrace();
         }
