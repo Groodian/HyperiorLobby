@@ -28,8 +28,8 @@ public class LobbyScoreboard {
         sb.updateLine(7, player, "§fOnline§7:");
         sb.updateLine(8, player, "§7" + plugin.getOnlineCount());
         sb.updateLine(9, player, "   ");
-        sb.updateLine(10, player, "§fTeamSpeak§7:");
-        sb.updateLine(11, player, "§ehyperior.de");
+        sb.updateLine(10, player, "§fDiscord§7:");
+        sb.updateLine(11, player, "§e/discord");
     }
 
     public void update(Player player) {
