@@ -1,0 +1,16 @@
+name: $name
+version: $version
+main: de.groodian.lobby.main.Main
+description: $description
+load: STARTUP
+authors:
+  - Groodian
+api-version: $apiVersion
+
+depend: [ HyperiorCore ]
+
+commands:
+  lsetup:
+    description: Setting up the lobby
+  build:
+    description: Build mode
