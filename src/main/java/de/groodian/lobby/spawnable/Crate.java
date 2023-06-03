@@ -12,32 +12,31 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class Crate {
 
     private final Main plugin;
-    private Hologram hologram;
     private Location location;
     private Double x = 0D;
     private Double z = 0D;
-    private boolean working;
 
     public Crate(Main plugin) {
         this.plugin = plugin;
-
-        working = false;
 
         create();
         run();
     }
 
     private void create() {
-        ConfigLocation util = new ConfigLocation(plugin, "Crates");
-        if (util.loadLocation() != null) {
-            location = util.loadLocation();
-            hologram = new Hologram(location.subtract(0, 1.2, 0), "§a§lCOSMETICS KISTE", "§fÖffne Kisten und erhalte coole Gegenstände.");
-            hologram.spawnHologram();
-            location.add(0, 0.7, 0);
-            working = true;
-        } else {
+        Location location = new ConfigLocation(plugin, "Crates").loadLocation();
+
+        if (location == null) {
             Bukkit.getConsoleSender().sendMessage(Main.PREFIX_LEGACY + "§4Die Crates-Location wurde noch nicht gesetzt!");
+            return;
         }
+
+        Hologram hologram = new Hologram(location.subtract(0, 1.2, 0), "§a§lCOSMETICS KISTE",
+                "§fÖffne Kisten und erhalte coole Gegenstände.");
+        hologram.spawnHologram();
+
+        location.add(0, 0.7, 0);
+        this.location = location;
     }
 
     private void run() {
@@ -57,10 +56,6 @@ public class Crate {
                 z += 0.2;
             }
         }.runTaskTimer(plugin, 40, 2);
-    }
-
-    public boolean isWorking() {
-        return working;
     }
 
 }

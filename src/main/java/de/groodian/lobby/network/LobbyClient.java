@@ -5,6 +5,7 @@ import de.groodian.network.Client;
 import de.groodian.network.DataPackage;
 import java.util.HashMap;
 import java.util.Map;
+import org.bukkit.Bukkit;
 
 public class LobbyClient extends Client {
 
@@ -32,7 +33,7 @@ public class LobbyClient extends Client {
             } else if (group.equalsIgnoreCase("LOBBY")) {
                 lobbyServiceInfos.put(groupNumber, new LobbyServiceInfo((int) dataPackage.get(3), (int) dataPackage.get(4)));
             } else {
-                System.out.println("[Client] Unknown group: " + group);
+                Bukkit.getConsoleSender().sendMessage("[Client] Unknown group: " + group);
             }
         } else if (header.equalsIgnoreCase("DISCONNECTED")) {
             String group = dataPackage.get(1).toString();
@@ -42,14 +43,14 @@ public class LobbyClient extends Client {
             } else if (group.equalsIgnoreCase("LOBBY")) {
                 lobbyServiceInfos.remove(groupNumber);
             } else {
-                System.out.println("[Client] Unknown group: " + group);
+                Bukkit.getConsoleSender().sendMessage("[Client] Unknown group: " + group);
             }
         } else {
-            System.out.println("[Client] Unknown header: " + header);
+            Bukkit.getConsoleSender().sendMessage("[Client] Unknown header: " + header);
         }
 
         plugin.getMinecraftPartyGUIManager().update();
-        //plugin.getMpJoin().updateHologram();
+        plugin.getMpJoin().updateHologram();
         plugin.getLobbyGUIManager().update();
     }
 

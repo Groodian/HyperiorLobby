@@ -33,6 +33,8 @@ public class DailyBonusGUI extends GUI {
         putItemsDelayed(gray, new int[]{1, 7, 19, 25}, 6);
         putItemsDelayed(gray, new int[]{2, 6, 20, 24, 9, 17}, 9);
 
+        addRewards();
+
         new HSound(Sound.ENTITY_HORSE_ARMOR).playFor(player);
     }
 
@@ -40,7 +42,7 @@ public class DailyBonusGUI extends GUI {
         User user = HyperiorCore.getUserManager().get(player.getUniqueId());
 
         addReward(user, user.getDailyBonus(), DailyBonusType.PLAYER, null, null, DailyBonus.DAILY_BONUS_COINS,
-                new ItemBuilder(Material.GLOWSTONE_DUST).setName("§7§lSpieler-Belohnung"), 12);
+                new ItemBuilder(Material.SUGAR).setName("§7§lSpieler-Belohnung"), 12);
         addReward(user, user.getDailyBonusVIP(), DailyBonusType.VIP, "dailybonus.vip", "VIP", DailyBonus.DAILY_BONUS_VIP_COINS,
                 new ItemBuilder(Material.GLOWSTONE_DUST).setName("§e§lVIP-Belohnung"), 14);
     }

@@ -32,15 +32,14 @@ public class Spawn {
 
     private void spawnParticleAndClay() {
         ConfigLocation locationUtil = new ConfigLocation(plugin, "Spawn");
-        Location location;
+        Location location = locationUtil.loadLocation();
 
-        if (locationUtil.loadLocation() != null) {
-            location = locationUtil.loadLocation();
-            location.add(0.0D, 1.5D, 0.0D);
-        } else {
+        if (location == null) {
             Bukkit.getConsoleSender().sendMessage(Main.PREFIX_LEGACY + "§cDie Spawn-Location wurde noch nicht gesetzt!");
             return;
         }
+
+        location.add(0.0D, 1.5D, 0.0D);
 
         HParticle particle = new HParticle(Particle.FIREWORKS_SPARK, 0, null);
 

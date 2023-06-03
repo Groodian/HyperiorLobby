@@ -8,6 +8,8 @@ import de.groodian.lobby.gui.LobbyGUI;
 import de.groodian.lobby.gui.NavigatorGUI;
 import de.groodian.lobby.main.Main;
 import de.groodian.lobby.spawnable.Crate;
+import de.groodian.lobby.spawnable.DailyBonus;
+import de.groodian.lobby.spawnable.MinecraftPartyJoin;
 import de.groodian.lobby.spawnable.Spawn;
 import java.util.Calendar;
 import net.kyori.adventure.text.Component;
@@ -41,6 +43,8 @@ public class MainListener implements Listener {
         if (e.getWorld().getName().equals("world")) {
             new Crate(plugin);
             new Spawn(plugin);
+            plugin.setDailyBonus(new DailyBonus(plugin));
+            plugin.setMpJoin(new MinecraftPartyJoin(plugin));
         }
     }
 
@@ -117,13 +121,6 @@ public class MainListener implements Listener {
         } else {
             Bukkit.getConsoleSender().sendMessage(Main.PREFIX_LEGACY + "§cDie Spawn-Warp-Location wurde noch nicht gesetzt!");
         }
-
-        /*
-        if (plugin.getMpJoin().isWorking() && plugin.getDailyBonus().isWorking() && plugin.getCrates().isWorking()) {
-            LobbyPacketReader lpr = new LobbyPacketReader(player, plugin);
-            lpr.inject();
-        }
-        */
 
         plugin.getClient().sendUpdate(Bukkit.getOnlinePlayers().size());
     }

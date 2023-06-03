@@ -16,6 +16,8 @@ import de.groodian.lobby.gui.NavigatorGUI;
 import de.groodian.lobby.listener.CrateListener;
 import de.groodian.lobby.listener.MainListener;
 import de.groodian.lobby.network.LobbyClient;
+import de.groodian.lobby.spawnable.DailyBonus;
+import de.groodian.lobby.spawnable.MinecraftPartyJoin;
 import de.groodian.network.DataPackage;
 import java.util.ArrayList;
 import net.kyori.adventure.text.Component;
@@ -39,8 +41,8 @@ public class Main extends JavaPlugin implements PluginMessageListener {
     public static final int MAX_PLAYERS = 50;
 
     private int groupNumber;
-    //private MinecraftPartyJoin mpJoin;
-    //private DailyBonus dailyBonus;
+    private MinecraftPartyJoin mpJoin;
+    private DailyBonus dailyBonus;
     private LobbyScoreboard lobbyScoreboard;
     private ArrayList<Player> build;
     private GUIManager minecraftPartyGUIManager;
@@ -54,8 +56,6 @@ public class Main extends JavaPlugin implements PluginMessageListener {
         Bukkit.getConsoleSender().sendMessage(PREFIX_LEGACY + "§aDas Plugin wird geladen...");
 
         groupNumber = Integer.parseInt(PlainTextComponentSerializer.plainText().serialize(Bukkit.motd()));
-        //mpJoin = new MinecraftPartyJoin(this);
-        //dailyBonus = new DailyBonus(this);
         lobbyScoreboard = new LobbyScoreboard(this);
         build = new ArrayList<>();
 
@@ -134,13 +134,21 @@ public class Main extends JavaPlugin implements PluginMessageListener {
         return client;
     }
 
-    /*public MinecraftPartyJoin getMpJoin() {
+    public MinecraftPartyJoin getMpJoin() {
         return mpJoin;
-    }*/
+    }
 
-    /*public DailyBonus getDailyBonus() {
+    public void setMpJoin(MinecraftPartyJoin mpJoin) {
+        this.mpJoin = mpJoin;
+    }
+
+    public DailyBonus getDailyBonus() {
         return dailyBonus;
-    }*/
+    }
+
+    public void setDailyBonus(DailyBonus dailyBonus) {
+        this.dailyBonus = dailyBonus;
+    }
 
     public LobbyScoreboard getLobbyScoreboard() {
         return lobbyScoreboard;
