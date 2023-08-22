@@ -1,13 +1,13 @@
-package de.groodian.lobby.spawnable;
+package de.groodian.hyperiorlobby.spawnable;
 
 import de.groodian.hyperiorcore.main.HyperiorCore;
+import de.groodian.hyperiorcore.spawnable.Hologram;
 import de.groodian.hyperiorcore.spawnable.NPC;
 import de.groodian.hyperiorcore.util.ConfigLocation;
-import de.groodian.hyperiorcore.util.Hologram;
 import de.groodian.hyperiorcore.util.ItemBuilder;
-import de.groodian.lobby.gui.MinecraftPartyGUI;
-import de.groodian.lobby.main.Main;
-import de.groodian.lobby.network.MinecraftPartyServiceInfo;
+import de.groodian.hyperiorlobby.gui.MinecraftPartyGUI;
+import de.groodian.hyperiorlobby.main.Main;
+import de.groodian.hyperiorlobby.network.MinecraftPartyServiceInfo;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -78,11 +78,13 @@ public class MinecraftPartyJoin {
         }
 
         if (hologram != null) {
-            hologram.destroyHologram();
+            HyperiorCore.getSpawnAbleManager().destroySpawnAble(hologram);
         }
 
         hologram = new Hologram(location.clone().add(0, 0.4, 0), "§6§lMinecraftParty", waitingMSG, playingMSG);
-        hologram.spawnHologram();
+        hologram.showAll();
+
+        HyperiorCore.getSpawnAbleManager().registerSpawnAble(hologram);
     }
 
 }

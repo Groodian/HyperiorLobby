@@ -1,11 +1,12 @@
-package de.groodian.lobby.gui;
+package de.groodian.hyperiorlobby.gui;
 
 import de.groodian.hyperiorcore.gui.GUI;
 import de.groodian.hyperiorcore.gui.GUIRunnable;
 import de.groodian.hyperiorcore.util.HSound;
 import de.groodian.hyperiorcore.util.ItemBuilder;
-import de.groodian.lobby.main.Main;
-import de.groodian.lobby.network.MinecraftPartyServiceInfo;
+import de.groodian.hyperiorcore.util.PlayerConnect;
+import de.groodian.hyperiorlobby.main.Main;
+import de.groodian.hyperiorlobby.network.MinecraftPartyServiceInfo;
 import java.util.Map;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -44,7 +45,7 @@ public class MinecraftPartyGUI extends GUI {
                             .getMinecraftPartyServiceInfos()
                             .entrySet()) {
                         if (info.getValue().getGameState().equalsIgnoreCase("Lobby")) {
-                            player.sendMessage("§4TODO! " + info.getKey());
+                            PlayerConnect.connect(plugin, player, "MINECRAFTPARTY-" + info.getKey());
                         }
                     }
                 };
@@ -74,10 +75,10 @@ public class MinecraftPartyGUI extends GUI {
         int i = 0;
         for (Map.Entry<Integer, MinecraftPartyServiceInfo> info : plugin.getClient().getMinecraftPartyServiceInfos().entrySet()) {
             if (info.getValue().getGameState().equalsIgnoreCase("Lobby")) {
-                putItem(new ItemBuilder(Material.YELLOW_STAINED_GLASS_PANE).setName("§a" + info.getKey())
+                putItem(new ItemBuilder(Material.YELLOW_STAINED_GLASS_PANE).setName("§aMinecraft Party - " + info.getKey())
                         .setLore("§7Status: §6" + info.getValue().getGameState(),
                                 "§7Spieler: §6" + info.getValue().getOnlinePlayers() + "/" + info.getValue().getMaxPlayers())
-                        .build(), i, () -> player.sendMessage("§4TODO! " + info.getKey()));
+                        .build(), i, () -> PlayerConnect.connect(plugin, player, "MINECRAFTPARTY-" + info.getKey()));
                 i++;
             }
         }
@@ -87,10 +88,10 @@ public class MinecraftPartyGUI extends GUI {
         int i = 0;
         for (Map.Entry<Integer, MinecraftPartyServiceInfo> info : plugin.getClient().getMinecraftPartyServiceInfos().entrySet()) {
             if (!info.getValue().getGameState().equalsIgnoreCase("Lobby")) {
-                putItem(new ItemBuilder(Material.LIME_STAINED_GLASS_PANE).setName("§a" + info.getKey())
+                putItem(new ItemBuilder(Material.LIME_STAINED_GLASS_PANE).setName("§aMinecraft Party - " + info.getKey())
                         .setLore("§7Status: §6" + info.getValue().getGameState(),
                                 "§7Spieler: §6" + info.getValue().getOnlinePlayers() + "/" + info.getValue().getMaxPlayers())
-                        .build(), i, () -> player.sendMessage("§4TODO!" + info.getKey()));
+                        .build(), i, () -> PlayerConnect.connect(plugin, player, "MINECRAFTPARTY-" + info.getKey()));
                 i++;
             }
         }

@@ -1,9 +1,10 @@
-package de.groodian.lobby.spawnable;
+package de.groodian.hyperiorlobby.spawnable;
 
+import de.groodian.hyperiorcore.main.HyperiorCore;
+import de.groodian.hyperiorcore.spawnable.Hologram;
 import de.groodian.hyperiorcore.util.ConfigLocation;
 import de.groodian.hyperiorcore.util.HParticle;
-import de.groodian.hyperiorcore.util.Hologram;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -33,7 +34,9 @@ public class Crate {
 
         Hologram hologram = new Hologram(location.subtract(0, 1.2, 0), "§a§lCOSMETICS KISTE",
                 "§fÖffne Kisten und erhalte coole Gegenstände.");
-        hologram.spawnHologram();
+        hologram.showAll();
+
+        HyperiorCore.getSpawnAbleManager().registerSpawnAble(hologram);
 
         location.add(0, 0.7, 0);
         this.location = location;

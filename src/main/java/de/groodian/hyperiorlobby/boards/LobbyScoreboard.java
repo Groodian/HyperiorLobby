@@ -1,10 +1,10 @@
-package de.groodian.lobby.boards;
+package de.groodian.hyperiorlobby.boards;
 
 import de.groodian.hyperiorcore.boards.HScoreboard;
 import de.groodian.hyperiorcore.main.HyperiorCore;
 import de.groodian.hyperiorcore.user.Rank;
 import de.groodian.hyperiorcore.user.User;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package de.groodian.lobby.network;
+package de.groodian.hyperiorlobby.network;
 
 public class MinecraftPartyServiceInfo {
 

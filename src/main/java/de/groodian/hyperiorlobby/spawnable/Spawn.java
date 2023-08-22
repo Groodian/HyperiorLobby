@@ -1,9 +1,9 @@
-package de.groodian.lobby.spawnable;
+package de.groodian.hyperiorlobby.spawnable;
 
 import de.groodian.hyperiorcore.util.ColoredMaterial;
 import de.groodian.hyperiorcore.util.ConfigLocation;
 import de.groodian.hyperiorcore.util.HParticle;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import java.util.List;
 import java.util.Random;
 import org.bukkit.Bukkit;

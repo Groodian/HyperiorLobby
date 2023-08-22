@@ -1,12 +1,12 @@
-package de.groodian.lobby.spawnable;
+package de.groodian.hyperiorlobby.spawnable;
 
 import de.groodian.hyperiorcore.main.HyperiorCore;
+import de.groodian.hyperiorcore.spawnable.Hologram;
 import de.groodian.hyperiorcore.spawnable.NPC;
 import de.groodian.hyperiorcore.util.ConfigLocation;
-import de.groodian.hyperiorcore.util.Hologram;
 import de.groodian.hyperiorcore.util.ItemBuilder;
-import de.groodian.lobby.gui.DailyBonusGUI;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.gui.DailyBonusGUI;
+import de.groodian.hyperiorlobby.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -42,7 +42,9 @@ public class DailyBonus {
         HyperiorCore.getSpawnAbleManager().registerSpawnAble(npc);
 
         Hologram hologram = new Hologram(location.add(0, 0.2, 0), "§b§lTÄGLICHE BELOHNUNG", "§fHol dir deine tägliche Belohnung ab!");
-        hologram.spawnHologram();
+        hologram.showAll();
+
+        HyperiorCore.getSpawnAbleManager().registerSpawnAble(hologram);
     }
 
 }

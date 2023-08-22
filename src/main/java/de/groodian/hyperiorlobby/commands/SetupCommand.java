@@ -1,14 +1,14 @@
-package de.groodian.lobby.commands;
+package de.groodian.hyperiorlobby.commands;
 
 import de.groodian.hyperiorcore.command.HCommandPaper;
 import de.groodian.hyperiorcore.command.HSubCommandPaper;
 import de.groodian.hyperiorcore.util.ConfigLocation;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import java.util.List;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
-import static de.groodian.lobby.main.Main.PREFIX;
+import static de.groodian.hyperiorlobby.main.Main.PREFIX;
 
 public class SetupCommand extends HCommandPaper<Player> {
 

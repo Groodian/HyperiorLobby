@@ -1,10 +1,10 @@
-package de.groodian.lobby.gui;
+package de.groodian.hyperiorlobby.gui;
 
 import de.groodian.hyperiorcore.gui.GUI;
 import de.groodian.hyperiorcore.util.ConfigLocation;
 import de.groodian.hyperiorcore.util.HSound;
 import de.groodian.hyperiorcore.util.ItemBuilder;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

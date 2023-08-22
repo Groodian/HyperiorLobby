@@ -1,7 +1,7 @@
-package de.groodian.lobby.listener;
+package de.groodian.hyperiorlobby.listener;
 
 import de.groodian.hyperiorcore.util.ConfigLocation;
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,6 +1,6 @@
-package de.groodian.lobby.network;
+package de.groodian.hyperiorlobby.network;
 
-import de.groodian.lobby.main.Main;
+import de.groodian.hyperiorlobby.main.Main;
 import de.groodian.network.Client;
 import de.groodian.network.DataPackage;
 import java.util.HashMap;
@@ -50,8 +50,10 @@ public class LobbyClient extends Client {
         }
 
         plugin.getMinecraftPartyGUIManager().update();
-        plugin.getMpJoin().updateHologram();
         plugin.getLobbyGUIManager().update();
+        if (plugin.getMpJoin() != null) {
+            plugin.getMpJoin().updateHologram();
+        }
     }
 
     @Override

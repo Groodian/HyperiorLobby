@@ -1,4 +1,4 @@
-package de.groodian.lobby.gui;
+package de.groodian.hyperiorlobby.gui;
 
 import de.groodian.hyperiorcore.gui.GUI;
 import de.groodian.hyperiorcore.gui.GUIRunnable;

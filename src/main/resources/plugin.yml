@@ -1,6 +1,6 @@
 name: $name
 version: $version
-main: de.groodian.lobby.main.Main
+main: de.groodian.hyperiorlobby.main.Main
 description: $description
 load: STARTUP
 authors:
