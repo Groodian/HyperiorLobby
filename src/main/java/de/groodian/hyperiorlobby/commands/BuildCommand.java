@@ -14,12 +14,12 @@ public class BuildCommand extends HCommandPaper<Player> {
     private final Main plugin;
 
     public BuildCommand(Main plugin) {
-        super(Player.class, "build", "Build in the Lobby", PREFIX, "lobby.build", List.of());
+        super(Player.class, "build", "Build in the Lobby", PREFIX, "lobby.build", List.of(), List.of());
         this.plugin = plugin;
     }
 
     @Override
-    protected void onCall(Player player) {
+    protected void onCall(Player player, String[] args) {
         if (!plugin.getBuild().contains(player)) {
             plugin.getBuild().add(player);
             player.setGameMode(GameMode.CREATIVE);
