@@ -3,6 +3,7 @@ package de.groodian.hyperiorlobby.gui;
 import de.groodian.hyperiorcore.gui.GUI;
 import de.groodian.hyperiorcore.gui.GUIRunnable;
 import de.groodian.hyperiorcore.main.HyperiorCore;
+import de.groodian.hyperiorcore.user.CoinSystem;
 import de.groodian.hyperiorcore.user.DailyBonus;
 import de.groodian.hyperiorcore.user.DailyBonusType;
 import de.groodian.hyperiorcore.user.Rank;
@@ -10,7 +11,9 @@ import de.groodian.hyperiorcore.user.User;
 import de.groodian.hyperiorcore.util.HSound;
 import de.groodian.hyperiorcore.util.ItemBuilder;
 import de.groodian.hyperiorcore.util.Time;
+import java.time.Duration;
 import java.time.OffsetDateTime;
+import java.util.List;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -26,8 +29,8 @@ public class DailyBonusGUI extends GUI {
 
     @Override
     protected void onOpen() {
-        ItemStack white = new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setName("§a").build();
-        ItemStack gray = new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setName("§a").build();
+        ItemStack white = new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setName(Component.empty()).build();
+        ItemStack gray = new ItemBuilder(Material.WHITE_STAINED_GLASS_PANE).setName(Component.empty()).build();
 
         putItemsDelayed(white, new int[]{0, 8, 18, 26}, 3);
         putItemsDelayed(gray, new int[]{1, 7, 19, 25}, 6);
@@ -39,7 +42,7 @@ public class DailyBonusGUI extends GUI {
     }
 
     private void addRewards() {
-        User user = HyperiorCore.getUserManager().get(player.getUniqueId());
+        User user = HyperiorCore.getPaper().getUserManager().get(player.getUniqueId());
 
         addReward(user, user.getDailyBonus(), DailyBonusType.PLAYER, null, null, DailyBonus.DAILY_BONUS_COINS,
                 new ItemBuilder(Material.SUGAR).setName("§7§lSpieler-Belohnung"), 12);
@@ -52,13 +55,19 @@ public class DailyBonusGUI extends GUI {
         if (user.has(permission)) {
             if (user.canCollect(offsetDateTime)) {
                 GUIRunnable guiRunnable = () -> {
-                    HyperiorCore.getDailyBonus().collect(player, dailyBonusType);
-                    new HSound(Sound.ENTITY_PLAYER_LEVELUP).playFor(player);
-                    update();
+                    HyperiorCore.getPaper()
+                            .getDatabaseManager()
+                            .transaction(List.of(
+                                            new DailyBonus(player, dailyBonusType),
+                                            new CoinSystem.Add(false, coins, player)),
+                                    success -> {
+                                        new HSound(Sound.ENTITY_PLAYER_LEVELUP).playFor(player);
+                                        update();
+                                    });
                 };
 
                 putItem(itemBuilder.setLore("", rewardString(coins), "", "§aKlicke um die Belohnung einzusammeln.").build(), slot,
-                        guiRunnable);
+                        guiRunnable, Duration.ofSeconds(10));
             } else {
                 putItem(itemBuilder.setLore("", rewardString(coins), "",
                         "§cDu kannst die Belohnung erst wieder in " + Time.timeLeftString(OffsetDateTime.now(),

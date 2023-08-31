@@ -39,12 +39,12 @@ public class DailyBonus {
         });
         npc.showAll();
 
-        HyperiorCore.getSpawnAbleManager().registerSpawnAble(npc);
+        HyperiorCore.getPaper().getSpawnAbleManager().registerSpawnAble(npc);
 
         Hologram hologram = new Hologram(location.add(0, 0.2, 0), "§b§lTÄGLICHE BELOHNUNG", "§fHol dir deine tägliche Belohnung ab!");
         hologram.showAll();
 
-        HyperiorCore.getSpawnAbleManager().registerSpawnAble(hologram);
+        HyperiorCore.getPaper().getSpawnAbleManager().registerSpawnAble(hologram);
     }
 
 }

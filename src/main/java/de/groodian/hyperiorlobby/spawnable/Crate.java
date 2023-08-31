@@ -36,7 +36,7 @@ public class Crate {
                 "§fÖffne Kisten und erhalte coole Gegenstände.");
         hologram.showAll();
 
-        HyperiorCore.getSpawnAbleManager().registerSpawnAble(hologram);
+        HyperiorCore.getPaper().getSpawnAbleManager().registerSpawnAble(hologram);
 
         location.add(0, 0.7, 0);
         this.location = location;

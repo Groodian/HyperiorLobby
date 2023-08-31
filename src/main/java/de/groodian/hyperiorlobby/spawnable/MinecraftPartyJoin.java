@@ -44,7 +44,7 @@ public class MinecraftPartyJoin {
         });
         npc.showAll();
 
-        HyperiorCore.getSpawnAbleManager().registerSpawnAble(npc);
+        HyperiorCore.getPaper().getSpawnAbleManager().registerSpawnAble(npc);
 
         this.location = location;
     }
@@ -78,13 +78,13 @@ public class MinecraftPartyJoin {
         }
 
         if (hologram != null) {
-            HyperiorCore.getSpawnAbleManager().destroySpawnAble(hologram);
+            HyperiorCore.getPaper().getSpawnAbleManager().destroySpawnAble(hologram);
         }
 
         hologram = new Hologram(location.clone().add(0, 0.4, 0), "§6§lMinecraftParty", waitingMSG, playingMSG);
         hologram.showAll();
 
-        HyperiorCore.getSpawnAbleManager().registerSpawnAble(hologram);
+        HyperiorCore.getPaper().getSpawnAbleManager().registerSpawnAble(hologram);
     }
 
 }

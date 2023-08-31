@@ -1,28 +1,29 @@
 package de.groodian.hyperiorlobby.spawnable;
 
-import de.groodian.hyperiorcore.util.ColoredMaterial;
 import de.groodian.hyperiorcore.util.ConfigLocation;
 import de.groodian.hyperiorcore.util.HParticle;
 import de.groodian.hyperiorlobby.main.Main;
-import java.util.List;
 import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Tag;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Spawn {
 
     private final Main plugin;
-    private final List<Material> clay;
+    private final Random random;
+
     private Double pos0;
     private Double pos1;
 
     public Spawn(Main plugin) {
         this.plugin = plugin;
-        this.clay = ColoredMaterial.get("_TERRACOTTA");
+        this.random = new Random();
 
         pos0 = 0.0D;
         pos1 = 3.2D;
@@ -63,22 +64,33 @@ public class Spawn {
             }
         }.runTaskTimer(plugin, 40, 2);
 
-        Random random = new Random();
-
         new BukkitRunnable() {
             @Override
             public void run() {
                 for (Player all : Bukkit.getOnlinePlayers()) {
                     if (all.getLocation().distance(location) < 50) {
-                        all.sendBlockChange(location.clone().add(1, -2, 0), clay.get(random.nextInt(clay.size())).createBlockData());
-                        all.sendBlockChange(location.clone().add(-1, -2, 0), clay.get(random.nextInt(clay.size())).createBlockData());
-                        all.sendBlockChange(location.clone().add(0, -2, 1), clay.get(random.nextInt(clay.size())).createBlockData());
-                        all.sendBlockChange(location.clone().add(0, -2, -1), clay.get(random.nextInt(clay.size())).createBlockData());
+                        all.sendBlockChange(location.clone().add(1, -2, 0), getRandomTerracotta());
+                        all.sendBlockChange(location.clone().add(-1, -2, 0), getRandomTerracotta());
+                        all.sendBlockChange(location.clone().add(0, -2, 1), getRandomTerracotta());
+                        all.sendBlockChange(location.clone().add(0, -2, -1), getRandomTerracotta());
                     }
                 }
             }
         }.runTaskTimer(plugin, 40, 20);
 
+    }
+
+    private BlockData getRandomTerracotta() {
+        int i = 0;
+        int item = random.nextInt(Tag.TERRACOTTA.getValues().size());
+        for (Material material : Tag.TERRACOTTA.getValues()) {
+            if (i == item) {
+                return material.createBlockData();
+            }
+            i++;
+        }
+
+        return Material.TERRACOTTA.createBlockData();
     }
 
 }

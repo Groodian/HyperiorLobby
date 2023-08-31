@@ -16,11 +16,11 @@ public class LobbyScoreboard {
 
     public LobbyScoreboard(Main plugin) {
         this.plugin = plugin;
-        this.sb = HyperiorCore.getSB();
+        this.sb = HyperiorCore.getPaper().getScoreboard();
     }
 
     public void set(Player player) {
-        User user = HyperiorCore.getUserManager().get(player.getUniqueId());
+        User user = HyperiorCore.getPaper().getUserManager().get(player.getUniqueId());
         Rank rank = user.getRank();
 
         sb.updateLine(0, player, Component.text(""));
@@ -38,7 +38,7 @@ public class LobbyScoreboard {
     }
 
     public void update(Player player) {
-        User user = HyperiorCore.getUserManager().get(player.getUniqueId());
+        User user = HyperiorCore.getPaper().getUserManager().get(player.getUniqueId());
         Rank rank = user.getRank();
 
         sb.updateLine(2, player, Component.text(rank.name(), rank.color()));

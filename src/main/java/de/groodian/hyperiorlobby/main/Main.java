@@ -64,7 +64,7 @@ public class Main extends JavaPlugin implements PluginMessageListener {
         lobbyGUIManager = new GUIManager(LobbyGUI.class, this);
         navigatorGUIManager = new GUIManager(NavigatorGUI.class, this);
 
-        HCommandManagerPaper hCommandManagerPaper = HyperiorCore.getHCommandManagerPaper();
+        HCommandManagerPaper hCommandManagerPaper = HyperiorCore.getPaper().getHCommandManagerPaper();
         hCommandManagerPaper.registerCommand(this, new SetupCommand(this));
         hCommandManagerPaper.registerCommand(this, new BuildCommand(this));
 

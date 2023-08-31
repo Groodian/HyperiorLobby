@@ -86,6 +86,8 @@ public class MainListener implements Listener {
                     plugin.getNavigatorGUIManager().open(player, new NavigatorGUI());
                 } else if (interact.equals("Lobby")) {
                     plugin.getLobbyGUIManager().open(player, new LobbyGUI(plugin));
+                } else if (interact.equals("Profil")) {
+                    player.performCommand("stats");
                 }
             }
         }
@@ -113,6 +115,7 @@ public class MainListener implements Listener {
                         .build());
         player.getInventory()
                 .setItem(1, new ItemBuilder(Material.PLAYER_HEAD).setName("§a§lProfil §7(Rechtsklick)")
+                        .addCustomData("interact", PersistentDataType.STRING, "Profil")
                         .setSkullOwner(player.getUniqueId())
                         .build());
         player.getInventory()
@@ -120,7 +123,9 @@ public class MainListener implements Listener {
                         .addCustomData("interact", PersistentDataType.STRING, "Lobby")
                         .build());
 
-        HyperiorCore.getSB().registerScoreboard(player, Component.text("HYPERIOR").decorate(TextDecoration.BOLD), 12, 1, 100);
+        HyperiorCore.getPaper()
+                .getScoreboard()
+                .registerScoreboard(player, Component.text("HYPERIOR").decorate(TextDecoration.BOLD), 12, 1, 100);
         plugin.getLobbyScoreboard().set(player);
 
         event.joinMessage(null);
