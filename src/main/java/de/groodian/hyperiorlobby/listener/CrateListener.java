@@ -1,6 +1,7 @@
 package de.groodian.hyperiorlobby.listener;
 
 import de.groodian.hyperiorcore.util.ConfigLocation;
+import de.groodian.hyperiorcosmetics.HyperiorCosmetic;
 import de.groodian.hyperiorlobby.main.Main;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -22,7 +23,7 @@ public class CrateListener implements Listener {
                 ConfigLocation util = new ConfigLocation(plugin, "Crates");
                 if (e.getClickedBlock().getLocation().distance(util.loadLocation()) < 3) {
                     e.setCancelled(true);
-                    //HyperiorCosmetic.openCrateMenu(e.getPlayer());
+                    HyperiorCosmetic.openCrateMenu(e.getPlayer());
                 }
             }
         }

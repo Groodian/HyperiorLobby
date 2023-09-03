@@ -61,8 +61,10 @@ public class DailyBonusGUI extends GUI {
                                             new DailyBonus(player, dailyBonusType),
                                             new CoinSystem.Add(false, coins, player)),
                                     success -> {
-                                        new HSound(Sound.ENTITY_PLAYER_LEVELUP).playFor(player);
-                                        update();
+                                        if (success) {
+                                            new HSound(Sound.ENTITY_PLAYER_LEVELUP).playFor(player);
+                                            update();
+                                        }
                                     });
                 };
 
