@@ -83,7 +83,7 @@ public class DailyBonusGUI extends GUI {
                     break;
                 }
             }
-            rankLine.append(Component.text(" einsammeln!"));
+            rankLine.append(Component.text(" einsammeln!", NamedTextColor.GRAY));
 
             putItem(itemBuilder.setLore("", rewardString(coins), "", "§7Diese Belohnung kannst du nur").addLore(rankLine.build()).build(),
                     slot);
