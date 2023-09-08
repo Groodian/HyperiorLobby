@@ -4,6 +4,7 @@ import de.groodian.hyperiorcore.boards.Tablist;
 import de.groodian.hyperiorcore.main.HyperiorCore;
 import de.groodian.hyperiorcore.util.ConfigLocation;
 import de.groodian.hyperiorcore.util.ItemBuilder;
+import de.groodian.hyperiorcore.util.RespawnPlayer;
 import de.groodian.hyperiorlobby.gui.LobbyGUI;
 import de.groodian.hyperiorlobby.gui.NavigatorGUI;
 import de.groodian.hyperiorlobby.main.Main;
@@ -62,7 +63,7 @@ public class MainListener implements Listener {
     public void handlePlayerDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
         e.getDrops().clear();
-        player.spigot().respawn();
+        RespawnPlayer.respawn(player);
     }
 
     @EventHandler
